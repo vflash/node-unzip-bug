@@ -1,4 +1,6 @@
-﻿'use strict';
+﻿// node --expose-gc unziptest.js
+
+'use strict';
 
 var query = {
 	method:'GET',
