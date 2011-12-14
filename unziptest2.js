@@ -1,13 +1,5 @@
 ﻿'use strict';
 
-var UNZIP_OFF = false;
-
-
-
-
-
-//'http://www.burdafashion.com/ru/rss'
-
 var query = {
 	method:'GET',
 	headers: {
