@@ -31,7 +31,7 @@ request.on('response', function(response) {
 		});
 
 		response.on('end', function() {
-			test(arr)
+			buff = BufferJoin(arr);
 		}); 
 });
 
@@ -50,28 +50,27 @@ function BufferJoin(m) {
 		m[i].copy(buff, p);
 		p += m[i].length;
 	};
+	m.length = 0;
 
 	return buff;
 };
 
 function nulfunc(error, buffer){};
 
-function test(arr) {
-	var zlib = require('zlib');
+var buff = null;
+var zlib = require('zlib');
 	
-	setInterval(function() {
-		if (UNZIP_OFF) {
-			BufferJoin(arr);
-		} else {
-			zlib.unzip(BufferJoin(arr), nulfunc);
-		};
+setInterval(function() {
+	if (!buff) return
 
-		if (typeof gc == 'function') gc();
-	}, 20)
+	zlib.unzip(buff, nulfunc);
+	if (typeof gc == 'function') gc();
 
-	setInterval(function() {
-		console.log(process.memoryUsage());
-	}, 400);
+}, 20)
 
-};
+setInterval(function() {
+	console.log(process.memoryUsage());
+}, 400);
+
+
 
