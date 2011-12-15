@@ -55,15 +55,16 @@ var zlib = require('zlib');
 var timmer = false;
 var tm = +new Date();
 
+var zzz = [];
 
 function nulfunc(error, buffer){};
 
 function test() {
 	timmer = false;
 
-	zlib.unzip(buff, nulfunc);
-
-	
+	zlib.unzip(buff, nulfunc); // text unzip
+	//zzz.push(BufferJoin([buff])); // intentional leak
+	//var x = BufferJoin([buff]); // normal code
 };
 
 
