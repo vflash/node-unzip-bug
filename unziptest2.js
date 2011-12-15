@@ -49,22 +49,46 @@ function BufferJoin(m) {
 	return buff;
 };
 
-function nulfunc(error, buffer){};
 
 var buff = null;
 var zlib = require('zlib');
-	
-setInterval(function() {
-	if (!buff) return
+var timmer = false;
+var tm = +new Date();
+
+
+function nulfunc(error, buffer){};
+
+function test() {
+	timmer = false;
 
 	zlib.unzip(buff, nulfunc);
-	if (typeof gc == 'function') gc();
 
-}, 20)
+	
+};
+
 
 setInterval(function() {
+	if (!buff || timmer) return;
 	console.log(process.memoryUsage());
-}, 400);
+
+	
+
+	var x = +new Date();
+	if ((x-tm) > 5000) {
+		tm = x;
+
+		console.log('********* pause 2sec *********');
+		if (typeof gc == 'function') gc();
+
+		timmer = !!setTimeout(test, 2000);
+		
+	} else {
+		timmer = !!setTimeout(test, 10); 
+		
+	};
+}, 10)
+
+
 
 
 
